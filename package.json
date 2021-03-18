@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
-    "start": "serve out"
+    "build": "yarn generate-no-lang-fallback-pages && next build && next export && yarn remove-no-lang-fallback-pages",
+    "start": "serve out",
+    "generate-no-lang-fallback-pages": "node scripts/generateNoLangFallbackPages",
+    "remove-no-lang-fallback-pages": "node scripts/removeNoLangFallbackPages"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "next": "10.0.9",
     "next-i18next": "^8.1.2",
     "react": "17.0.1",

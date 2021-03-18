@@ -1,17 +1,23 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next'
+import { i18n } from '../next-i18next.config'
 
 export default function Home() {
+  const { t } = useTranslation('common')
+  const title = t('title')
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          {/* Welcome to <a href="https://nextjs.org">Next.js!</a> */}
+          {title}
         </h1>
 
         <p className={styles.description}>
@@ -63,3 +69,12 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...await serverSideTranslations(locale, ['common']),
+    },
+  }
+}
+
